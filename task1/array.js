@@ -15,7 +15,7 @@ function duplicateArray(arr) {
 
   if (!arr.length) throw new Error('Array is empty');
 
-  return arr.concat(arr);
+  return [...arr].concat(arr);
 }
 
 // console.log('%cMассив с дублированными элементами\n', 'color: red', duplicateArray([1, 3, 6]));
@@ -56,11 +56,9 @@ function deleteFirstEl(...arr) {
 function sortAndReverseStr(str) {
   if (str.constructor.name !== 'String') throw new Error('The argument must be a string');
 
-  const collator = new Intl.Collator();
-
   const arr = str.split('');
   const sortArr = arr.sort((a, b) => {
-    return collator.compare(a, b);
+    return a.localeCompare(b);
   });
 
   return sortArr.reverse().join('');
@@ -95,7 +93,7 @@ function getSliceArray(arr, start = 0, end = arr.length - 1) {
   if (!(arr instanceof Array) || typeof start !== 'number' || typeof end !== 'number')
     throw new Error('The arguments must be: (Array,[start => Number, end => Number])');
 
-  return arr.slice(start, end + 1);
+  return [...arr].slice(start, end + 1);
 }
 
 // console.log(getSliceArray(['а', 'б', 'в', 'г', 'д', 'е'], 1, 3));
@@ -162,7 +160,7 @@ const services = [
 ];
 
 function filterServices(arr, minTime, maxTime) {
-  const services = arr;
+  const services = [...arr];
 
   const filterServices = services.filter(
     (service) => service.executionTime >= minTime && service.executionTime <= maxTime,

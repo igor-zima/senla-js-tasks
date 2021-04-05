@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return {
       type: types[node.nodeType],
       name: node.nodeName,
-      childNodesCount: node.childNodes.length,
+      numberOfChildNodes: node.childNodes.length,
     };
   }
   console.log('%cNode info:', 'color: red');

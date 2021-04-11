@@ -1,6 +1,6 @@
 // Создать функцию multiply, которая будет принимать любое количество чисел и возвращать их произведение: multiplay(1,2,3) = 6. Если нет ни одного аргумента вернуть ноль.
 function multiply(...args) {
-  return args.reduce((acc, el) => acc + el, 0);
+  return args.reduce((acc, el) => acc * el, 0);
 }
 
 // console.log('%cMultiply с агруметами 1, 2, 3:', 'color: red;', multiply(1, 2, 3));

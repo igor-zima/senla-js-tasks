@@ -16,8 +16,8 @@ describe('Array functions', () => {
 
   beforeEach(() => {
     arr = [1, 2, 3, 'a', 'b', 'c'];
-    emptyArrError = new Error('Array is empty');
-    notArrArgumentError = new Error('The argument must be an array');
+    emptyArrError = new TypeError('Array is empty');
+    notArrArgumentError = new TypeError('The argument must be an array');
   });
 
   describe('function "findLastElement"', () => {
@@ -45,7 +45,7 @@ describe('Array functions', () => {
     it('should return fill array from pass number', () => {
       const result = [1, 2, 3];
       const num = 3;
-      const error = new Error('The argument must be a number');
+      const error = new TypeError('The argument must be a number');
 
       expect(fill(num)).toEqual(result);
       expect(fill(num)).toBeInstanceOf(Array);

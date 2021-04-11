@@ -1,8 +1,8 @@
 // Используя функцию, найти последний элемент массива, не изменяя его.
 function findLastElement(arr) {
-  if (!(arr instanceof Array)) throw new Error('The argument must be an array');
+  if (!(arr instanceof Array)) throw new TypeError('The argument must be an array');
 
-  if (!arr.length) throw new Error('Array is empty');
+  if (!arr.length) throw new TypeError('Array is empty');
 
   return arr[arr.length - 1];
 }
@@ -11,11 +11,11 @@ function findLastElement(arr) {
 
 // Создать такую функцию, которая принимала бы массив [1,3,6], а возвращала новый массив с дублированными элементами [1,3,6,1,3,6].
 function duplicateArray(arr) {
-  if (!(arr instanceof Array)) throw new Error('The argument must be an array');
+  if (!(arr instanceof Array)) throw new TypeError('The argument must be an array');
 
-  if (!arr.length) throw new Error('Array is empty');
+  if (!arr.length) throw new TypeError('Array is empty');
 
-  return [...arr].concat(arr);
+  return arr.concat(arr);
 }
 
 // console.log('%cMассив с дублированными элементами\n', 'color: red', duplicateArray([1, 3, 6]));
@@ -25,7 +25,7 @@ function fill(n) {
   let num = Number.parseInt(n);
 
   if (!(typeof num === 'number') || Number.isNaN(num)) {
-    throw new Error('The argument must be a number');
+    throw new TypeError('The argument must be a number');
   }
 
   const arr = Array(num).fill(0);
@@ -36,10 +36,10 @@ function fill(n) {
 
 // Создать такую функцию, которая принимала бы любое число массивов и удаляла из каждого массива первый элемент, а возвращала массив оставшихся значений ([1, 2, 3], ["x", "y", "z"] → [[2, 3], ["y", "z"]])"
 function deleteFirstEl(...arr) {
-  if (!arr.length) throw new Error('The argument must be an array');
+  if (!arr.length) throw new TypeError('The argument must be an array');
 
   return arr.map((el) => {
-    if (!(el instanceof Array)) throw new Error('The argument must be an array');
+    if (!(el instanceof Array)) throw new TypeError('The argument must be an array');
 
     el.shift();
     return el;
@@ -54,7 +54,7 @@ function deleteFirstEl(...arr) {
 
 // Создать функцию, которая упорядочит буквы в строке "екважбигёзд" в алфавитном порядке и возвратит строку в обратном порядке ("кизжёедгвба").
 function sortAndReverseStr(str) {
-  if (str.constructor.name !== 'String') throw new Error('The argument must be a string');
+  if (str.constructor.name !== 'String') throw new TypeError('The argument must be a string');
 
   const arr = str.split('');
   const sortArr = arr.sort((a, b) => {
@@ -67,12 +67,12 @@ function sortAndReverseStr(str) {
 // console.log(sortAndReverseStr(new String('екважбигёзд')));
 
 function checkArrForNum(arr) {
-  if (!(arr instanceof Array)) throw new Error('The argument must be a number array');
+  if (!(arr instanceof Array)) throw new TypeError('The argument must be a number array');
 
   const checkArr = arr.map((el) => Number.parseInt(el)).filter((el) => el);
 
   if (checkArr.length !== arr.length) {
-    throw new Error('The argument must be a number array');
+    throw new TypeError('The argument must be a number array');
   }
 
   return checkArr;
@@ -91,7 +91,7 @@ function reverseSortNum(arr) {
 // Ваша функция должна вернуть новый массив, состоящий из элементов исходного массива согласно аргументам (с-по) (getNewArray(“а, б, в, г, д, е”, 1,3) → [б, в, г]), не изменяя исходный массив и не используя циклы.
 function getSliceArray(arr, start = 0, end = arr.length - 1) {
   if (!(arr instanceof Array) || typeof start !== 'number' || typeof end !== 'number')
-    throw new Error('The arguments must be: (Array,[start => Number, end => Number])');
+    throw new TypeError('The arguments must be: (Array,[start => Number, end => Number])');
 
   return [...arr].slice(start, end + 1);
 }

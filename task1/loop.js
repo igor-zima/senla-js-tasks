@@ -51,10 +51,8 @@ function countdown() {
 function odd() {
   console.log('%cВывести в консоль все нечетные числа от 1 до 20 включительно:', 'color: red;');
 
-  for (let index = 1; index <= 20; index++) {
-    if (index % 2 !== 0) {
-      console.log(index);
-    }
+  for (let index = 1; index <= 20; index += 2) {
+    console.log(index);
   }
 }
 

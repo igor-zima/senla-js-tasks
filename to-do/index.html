@@ -31,7 +31,30 @@
         </div>
       </header>
 
-      <main></main>
+      <main>
+        <div class="task-settings">
+          <div class="tabs">
+            <button class="tab active">All</button>
+            <button class="tab">Active</button>
+            <button class="tab">Done</button>
+          </div>
+          <div class="new-task">
+            <span>New task</span>
+            <textarea name="new-task__area" id="new-task__area" class="new-task__area"></textarea>
+            <button class="add-btn">Add</button>
+          </div>
+        </div>
+        <ul class="task-list">
+          <li class="task">
+            <div class="task-btn__wrapper">
+              <button class="mark-btn mark-btn_important">Mark important</button
+              ><button class="delete-btn"></button>
+            </div>
+            <div class="star"></div>
+            <span class="task__text">First task</span>
+          </li>
+        </ul>
+      </main>
     </div>
   </body>
 </html>

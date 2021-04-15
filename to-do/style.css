@@ -155,9 +155,10 @@ img {
   color: #53565a;
   line-height: 19px;
   position: relative;
+  margin-bottom: 17px;
 }
 
-.task.important .star {
+.task[data-important='true'] .star {
   background: url(./assets/image/star.svg);
   width: 20px;
   height: 20px;
@@ -166,8 +167,12 @@ img {
   vertical-align: bottom;
 }
 
-.task.important .task__text {
+.task[data-important='true'] .task__text {
   font-weight: 700;
+}
+
+.task[data-done='true'] .task__text {
+  text-decoration: line-through;
 }
 
 .task:hover {
@@ -186,7 +191,7 @@ img {
 }
 
 .mark-btn {
-  background-color: #27ae60;
+  background-color: #bdbdbd;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 3px 4px rgba(0, 0, 0, 0.12),
     0px 1px 5px rgba(0, 0, 0, 0.2);
   border: 0;
@@ -203,8 +208,8 @@ img {
   flex: 0 0 auto;
 }
 
-.mark-btn_not-important {
-  background-color: #bdbdbd;
+.mark-btn_important {
+  background-color: #27ae60;
 }
 
 .delete-btn {

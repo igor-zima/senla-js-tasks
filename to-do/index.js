@@ -2,6 +2,9 @@ class ToDo {
   constructor(list) {
     this.list = list;
     this.tasks = [];
+  }
+
+  init() {
     this.checkLocal();
     document.getElementById('add-btn').addEventListener('click', this.addTaskHandler);
     this.list.addEventListener('click', this.taskHandler);
@@ -58,9 +61,13 @@ class ToDo {
   };
 
   taskHandler = (e) => {
+    const { id } = e.target.closest('.task').dataset;
+
     if (e.target.classList.contains('task')) {
       const done = e.target.dataset.done === 'true' ? true : false;
       e.target.dataset.done = !done;
+
+      this.updateTask(id, { done: e.target.dataset.done });
     }
 
     if (e.target.classList.contains('mark-btn')) {
@@ -68,6 +75,8 @@ class ToDo {
 
       e.target.classList.toggle('mark-btn_important');
       e.target.closest('.task').dataset.important = !important;
+
+      this.updateTask(id, { important: e.target.closest('.task').dataset.important });
     }
 
     if (e.target.classList.contains('delete-btn')) {
@@ -84,8 +93,15 @@ class ToDo {
 
     this.renderList(this.tasks);
   };
+
+  updateTask(id, option) {
+    const el = this.tasks.find((el) => el.id === +id);
+
+    Object.keys(option).forEach((opt) => (el[opt] = option[opt]));
+  }
 }
 
 const taskList = document.getElementById('task-list');
 
 const toDo = new ToDo(taskList);
+toDo.init();

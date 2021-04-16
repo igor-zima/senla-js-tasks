@@ -13,7 +13,14 @@ class ToDo {
   checkLocal() {
     const localList = localStorage.getItem('taskList');
 
-    if (localList) this.renderList(localList);
+    if (localList) {
+      this.tasks = JSON.parse(localList);
+      this.renderList(this.tasks);
+    }
+  }
+
+  updateLocal(list) {
+    localStorage.setItem('taskList', JSON.stringify(list));
   }
 
   renderList(tasks) {
@@ -51,6 +58,8 @@ class ToDo {
     this.renderTask(task);
 
     this.tasks.push(task);
+
+    this.updateLocal(this.tasks);
   }
 
   addTaskHandler = () => {
@@ -92,12 +101,16 @@ class ToDo {
     this.tasks.splice(index, 1);
 
     this.renderList(this.tasks);
+
+    this.updateLocal(this.tasks);
   };
 
   updateTask(id, option) {
     const el = this.tasks.find((el) => el.id === +id);
 
     Object.keys(option).forEach((opt) => (el[opt] = option[opt]));
+
+    this.updateLocal(this.tasks);
   }
 }
 

@@ -23,6 +23,41 @@ class ToDo {
     localStorage.setItem('taskList', JSON.stringify(list));
   }
 
+  createTask(value) {
+    const task = {
+      value,
+      important: false,
+      done: false,
+      id: Date.now(),
+    };
+
+    this.renderTask(task);
+
+    this.tasks.push(task);
+
+    this.updateLocal(this.tasks);
+  }
+
+  updateTask(id, option) {
+    const el = this.tasks.find((el) => el.id === +id);
+
+    Object.keys(option).forEach((opt) => (el[opt] = option[opt]));
+
+    this.updateLocal(this.tasks);
+  }
+
+  deleteTask = (evt) => {
+    const { id } = evt.target.closest('.task').dataset;
+
+    const index = this.tasks.findIndex((el) => el.id === +id);
+
+    this.tasks.splice(index, 1);
+
+    this.renderList(this.tasks);
+
+    this.updateLocal(this.tasks);
+  };
+
   renderList(tasks) {
     this.list.innerHTML = '';
 
@@ -45,21 +80,6 @@ class ToDo {
       </li>`;
 
     this.list.insertAdjacentHTML('beforeend', html);
-  }
-
-  createTask(value) {
-    const task = {
-      value,
-      important: false,
-      done: false,
-      id: Date.now(),
-    };
-
-    this.renderTask(task);
-
-    this.tasks.push(task);
-
-    this.updateLocal(this.tasks);
   }
 
   addTaskHandler = () => {
@@ -92,26 +112,6 @@ class ToDo {
       this.deleteTask(e);
     }
   };
-
-  deleteTask = (evt) => {
-    const { id } = evt.target.closest('.task').dataset;
-
-    const index = this.tasks.findIndex((el) => el.id === +id);
-
-    this.tasks.splice(index, 1);
-
-    this.renderList(this.tasks);
-
-    this.updateLocal(this.tasks);
-  };
-
-  updateTask(id, option) {
-    const el = this.tasks.find((el) => el.id === +id);
-
-    Object.keys(option).forEach((opt) => (el[opt] = option[opt]));
-
-    this.updateLocal(this.tasks);
-  }
 }
 
 const taskList = document.getElementById('task-list');

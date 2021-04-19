@@ -8,6 +8,7 @@ class ToDo {
     this.checkLocal();
     document.getElementById('add-btn').addEventListener('click', this.addTaskHandler);
     document.getElementById('search-input').addEventListener('input', this.searchTaskHandler);
+    document.getElementById('tabs').addEventListener('click', this.filterTaskHandler);
     this.list.addEventListener('click', this.taskHandler);
   }
 
@@ -122,6 +123,31 @@ class ToDo {
     const currentTasks = this.tasks.filter((task) => task.value.toLowerCase().includes(value));
 
     this.renderList(currentTasks);
+  };
+
+  filterTaskHandler = (e) => {
+    if (e.target.classList.contains('tab')) {
+      const tabData = e.target.dataset.tab;
+      const tabList = e.target.closest('.tabs');
+
+      const tabs = tabList.querySelectorAll('.tab');
+
+      tabs.forEach((el) => el.classList.remove('active'));
+      e.target.classList.add('active');
+
+      let currentTasks;
+
+      if (tabData === 'active') {
+        currentTasks = this.tasks.filter((task) => (task.done === 'true' ? false : true));
+      } else if (tabData === 'done') {
+        currentTasks = this.tasks.filter((task) => (task.done === 'true' ? true : false));
+      } else {
+        this.renderList(this.tasks);
+        return;
+      }
+
+      this.renderList(currentTasks);
+    }
   };
 }
 

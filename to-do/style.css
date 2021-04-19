@@ -185,14 +185,16 @@ img {
 }
 
 .task:hover .task-btn__wrapper {
-  opacity: 1;
+  /* opacity: 1; */
   transition: 0.3s ease-in;
+  display: flex;
 }
 
 .task-btn__wrapper {
   float: right;
-  display: flex;
-  opacity: 0;
+  display: none;
+  /* display: flex; */
+  /* opacity: 0; */
 }
 
 .mark-btn {

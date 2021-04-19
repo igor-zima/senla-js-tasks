@@ -7,6 +7,7 @@ class ToDo {
   init() {
     this.checkLocal();
     document.getElementById('add-btn').addEventListener('click', this.addTaskHandler);
+    document.getElementById('search-input').addEventListener('input', this.searchTaskHandler);
     this.list.addEventListener('click', this.taskHandler);
   }
 
@@ -111,6 +112,16 @@ class ToDo {
     if (e.target.classList.contains('delete-btn')) {
       this.deleteTask(e);
     }
+  };
+
+  searchTaskHandler = (e) => {
+    const value = e.target.value.toLowerCase();
+
+    if (!value) this.renderList(this.tasks);
+
+    const currentTasks = this.tasks.filter((task) => task.value.toLowerCase().includes(value));
+
+    this.renderList(currentTasks);
   };
 }
 

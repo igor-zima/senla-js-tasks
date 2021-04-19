@@ -88,6 +88,9 @@ img {
 
 .tabs {
   border-top: 1px solid #e2e2e2;
+  display: flex;
+  list-style: none;
+  padding: 0;
 }
 
 .tab {
@@ -182,12 +185,14 @@ img {
 }
 
 .task:hover .task-btn__wrapper {
-  display: flex;
+  opacity: 1;
+  transition: 0.3s ease-in;
 }
 
 .task-btn__wrapper {
   float: right;
-  display: none;
+  display: flex;
+  opacity: 0;
 }
 
 .mark-btn {

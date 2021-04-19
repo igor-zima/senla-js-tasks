@@ -26,6 +26,8 @@ class ToDo {
   }
 
   createTask(value) {
+    if (!value) return;
+
     const task = {
       value,
       important: false,
@@ -43,7 +45,7 @@ class ToDo {
   updateTask(id, option) {
     const el = this.tasks.find((el) => el.id === +id);
 
-    Object.keys(option).forEach((opt) => (el[opt] = option[opt]));
+    el[option] = !el[option];
 
     this.updateLocal(this.tasks);
   }
@@ -70,9 +72,11 @@ class ToDo {
 
   renderTask({ value, important, done, id }) {
     const btnImportant = important ? '' : 'mark-btn_important';
+    const taskImportant = important ? 'important' : '';
+    const taskDone = done ? 'done' : '';
 
     const html = `
-      <li class="task" data-important=${important} data-done=${done} data-id=${id}>
+      <li class="task ${taskImportant} ${taskDone}" data-id=${id}>
         <div class="task-btn__wrapper">
           <button class="mark-btn ${btnImportant}">Mark important</button>
           <button class="delete-btn"></button>
@@ -95,19 +99,14 @@ class ToDo {
     const { id } = e.target.closest('.task').dataset;
 
     if (e.target.classList.contains('task')) {
-      const done = e.target.dataset.done === 'true' ? true : false;
-      e.target.dataset.done = !done;
-
-      this.updateTask(id, { done: e.target.dataset.done });
+      e.target.classList.toggle('done');
+      this.updateTask(id, 'done');
     }
 
     if (e.target.classList.contains('mark-btn')) {
-      const important = e.target.closest('.task').dataset.important === 'true' ? true : false;
-
       e.target.classList.toggle('mark-btn_important');
-      e.target.closest('.task').dataset.important = !important;
-
-      this.updateTask(id, { important: e.target.closest('.task').dataset.important });
+      e.target.closest('.task').classList.toggle('important');
+      this.updateTask(id, 'important');
     }
 
     if (e.target.classList.contains('delete-btn')) {
@@ -116,6 +115,12 @@ class ToDo {
   };
 
   searchTaskHandler = (e) => {
+    const tabList = document.getElementById('tabs');
+    const tabs = tabList.querySelectorAll('.tab');
+
+    tabs.forEach((el) => el.classList.remove('active'));
+    tabs[0].classList.add('active');
+
     const value = e.target.value.toLowerCase();
 
     if (!value) this.renderList(this.tasks);
@@ -138,9 +143,9 @@ class ToDo {
       let currentTasks;
 
       if (tabData === 'active') {
-        currentTasks = this.tasks.filter((task) => (task.done === 'true' ? false : true));
+        currentTasks = this.tasks.filter((task) => !task.done);
       } else if (tabData === 'done') {
-        currentTasks = this.tasks.filter((task) => (task.done === 'true' ? true : false));
+        currentTasks = this.tasks.filter((task) => task.done);
       } else {
         this.renderList(this.tasks);
         return;

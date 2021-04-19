@@ -161,7 +161,7 @@ img {
   margin-bottom: 17px;
 }
 
-.task[data-important='true'] .star {
+/* .task[data-important='true'] .star {
   background: url(./assets/image/star.svg);
   width: 20px;
   height: 20px;
@@ -175,6 +175,23 @@ img {
 }
 
 .task[data-done='true'] .task__text {
+  text-decoration: line-through;
+} */
+
+.task.important .star {
+  background: url(./assets/image/star.svg);
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.task.important .task__text {
+  font-weight: 700;
+}
+
+.task.done .task__text {
   text-decoration: line-through;
 }
 

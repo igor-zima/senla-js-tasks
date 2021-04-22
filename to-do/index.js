@@ -9,6 +9,7 @@ class ToDo {
     document.getElementById('add-btn').addEventListener('click', this.addTaskHandler);
     document.getElementById('search-input').addEventListener('input', this.searchTaskHandler);
     document.getElementById('tabs').addEventListener('click', this.filterTaskHandler);
+    document.getElementById('new-task__area').addEventListener('keydown', this.addTaskHandler);
     this.list.addEventListener('click', this.taskHandler);
   }
 
@@ -88,11 +89,24 @@ class ToDo {
     this.list.insertAdjacentHTML('beforeend', html);
   }
 
-  addTaskHandler = () => {
+  addTaskHandler = (e) => {
     const taskArea = document.getElementById('new-task__area');
-    const { value } = taskArea;
-    this.createTask(value);
-    taskArea.value = '';
+    let { value } = taskArea;
+
+    if (e.type === 'click') {
+      this.createTask(value);
+      taskArea.value = '';
+      return;
+    }
+
+    if (e.ctrlKey && e.key === 'Enter') {
+      taskArea.value += '\n';
+      value += '\n';
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      this.createTask(value);
+      taskArea.value = '';
+    }
   };
 
   taskHandler = (e) => {

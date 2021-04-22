@@ -1,3 +1,4 @@
+import './style.css';
 class ToDo {
   constructor(list) {
     this.list = list;

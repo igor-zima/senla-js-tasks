@@ -104,13 +104,15 @@ export class ToDo {
       return;
     }
 
-    if (e.ctrlKey && e.key === 'Enter') {
-      taskArea.value += '\n';
-      value += '\n';
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      this.createTask(value);
-      taskArea.value = '';
+    if (navigator.maxTouchPoints === 0) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        taskArea.value += '\n';
+        value += '\n';
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        this.createTask(value);
+        taskArea.value = '';
+      }
     }
   };
 

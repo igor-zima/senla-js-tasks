@@ -41,6 +41,7 @@ img {
 .header {
   display: flex;
   position: fixed;
+  z-index: 1;
   top: 2%;
   flex-direction: column;
   align-items: center;
@@ -260,6 +261,10 @@ img {
     width: 174px;
     margin-right: 20px;
     margin-bottom: 0;
+  }
+
+  .logo a {
+    cursor: var(--cursor-img, url(./assets/image/cursor.svg), pointer);
   }
 
   .search {

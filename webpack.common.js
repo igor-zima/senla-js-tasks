@@ -26,7 +26,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: [
+              [
+                '@babel/env',
+                {
+                  targets: {
+                    ie: '11',
+                  },
+                  useBuiltIns: 'usage',
+                  corejs: '3.11.0',
+                },
+              ],
+            ],
             plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },

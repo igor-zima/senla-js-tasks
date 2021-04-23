@@ -49,5 +49,7 @@
     "url": "https://github.com/igor-zima/senla-js-tasks/issues"
   },
   "homepage": "https://github.com/igor-zima/senla-js-tasks#readme",
-  "dependencies": {}
+  "dependencies": {
+    "core-js": "^3.11.0"
+  }
 }

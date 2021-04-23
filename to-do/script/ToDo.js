@@ -1,3 +1,5 @@
+import 'core-js/stable';
+
 export class ToDo {
   constructor(list) {
     this.list = list;
@@ -72,18 +74,21 @@ export class ToDo {
   }
 
   renderTask({ value, important, done, id }) {
+    const currentValue = value.replace(/\n/g, '<br>');
     const btnImportant = important ? '' : 'mark-btn_important';
     const taskImportant = important ? 'important' : '';
     const taskDone = done ? 'done' : '';
 
     const html = `
-      <li class="task ${taskImportant} ${taskDone}" data-id=${id}>
+      <li class="task ${taskImportant} ${taskDone}" data-id=${id} tabindex="0">
         <div class="task-btn__wrapper">
-          <button class="mark-btn ${btnImportant}">Mark important</button>
-          <button class="delete-btn"></button>
+          <button class="mark-btn ${btnImportant}" tabindex="0">Mark important</button>
+          <button class="delete-btn" tabindex="0"></button>
         </div>
-        <div class="star"></div>
-        <span class="task__text">${value}</span>
+        <div class="task__text-wrapper">
+          <div class="star"></div>
+          <span class="task__text">${currentValue}</span>
+        </div>
       </li>`;
 
     this.list.insertAdjacentHTML('beforeend', html);
@@ -112,8 +117,12 @@ export class ToDo {
   taskHandler = (e) => {
     const { id } = e.target.closest('.task').dataset;
 
-    if (e.target.classList.contains('task')) {
-      e.target.classList.toggle('done');
+    if (
+      e.target.closest('.task') &&
+      !e.target.classList.contains('mark-btn') &&
+      !e.target.classList.contains('delete-btn')
+    ) {
+      e.target.closest('.task').classList.toggle('done');
       this.updateTask(id, 'done');
     }
 

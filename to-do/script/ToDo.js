@@ -60,10 +60,28 @@ export class ToDo {
 
     this.tasks.splice(index, 1);
 
-    this.renderList(this.tasks);
+    const checkTab = this.checkTabs();
+
+    const filterTask = this.filterTask(checkTab);
+
+    this.renderList(filterTask);
 
     this.updateLocal(this.tasks);
   };
+
+  filterTask(tab) {
+    let currentTasks;
+
+    if (tab === 'active') {
+      currentTasks = this.tasks.filter((task) => !task.done);
+    } else if (tab === 'done') {
+      currentTasks = this.tasks.filter((task) => task.done);
+    } else {
+      return this.tasks;
+    }
+
+    return currentTasks;
+  }
 
   renderList(tasks) {
     this.list.innerHTML = '';
@@ -92,6 +110,10 @@ export class ToDo {
       </li>`;
 
     this.list.insertAdjacentHTML('beforeend', html);
+  }
+
+  checkTabs() {
+    return document.querySelector('.tab.active').dataset.tab;
   }
 
   addTaskHandler = (e) => {
@@ -165,18 +187,9 @@ export class ToDo {
       tabs.forEach((el) => el.classList.remove('active'));
       e.target.classList.add('active');
 
-      let currentTasks;
+      const filterTask = this.filterTask(tabData);
 
-      if (tabData === 'active') {
-        currentTasks = this.tasks.filter((task) => !task.done);
-      } else if (tabData === 'done') {
-        currentTasks = this.tasks.filter((task) => task.done);
-      } else {
-        this.renderList(this.tasks);
-        return;
-      }
-
-      this.renderList(currentTasks);
+      this.renderList(filterTask);
     }
   };
 }

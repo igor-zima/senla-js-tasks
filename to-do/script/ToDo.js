@@ -104,8 +104,7 @@ export class ToDo {
           <button class="delete-btn" tabindex="0"></button>
         </div>
         <div class="task__text-wrapper">
-          <div class="star"></div>
-          <span class="task__text">${currentValue}</span>
+          <p class="task__text">${currentValue}</p>
         </div>
       </li>`;
 
@@ -116,13 +115,33 @@ export class ToDo {
     return document.querySelector('.tab.active').dataset.tab;
   }
 
+  showWarning(text) {
+    const warning = document.getElementById('warning');
+
+    warning.textContent = text;
+
+    warning.classList.add('warning_show');
+  }
+
+  hideWarning() {
+    const warning = document.getElementById('warning');
+
+    warning.classList.remove('warning_show');
+  }
+
   addTaskHandler = (e) => {
     const taskArea = document.getElementById('new-task__area');
     let { value } = taskArea;
 
+    if (!value) {
+      this.showWarning('Please enter text!');
+      return;
+    }
+
     if (e.type === 'click') {
       this.createTask(value);
       taskArea.value = '';
+      this.hideWarning();
       return;
     }
 
@@ -134,6 +153,7 @@ export class ToDo {
         e.preventDefault();
         this.createTask(value);
         taskArea.value = '';
+        this.hideWarning();
       }
     }
   };

@@ -40,9 +40,12 @@
             <li><button class="tab" data-tab="done">Done</button></li>
           </ul>
           <div class="new-task">
-            <span>New task</span>
+            <span class="new-task__title">New task</span>
             <textarea name="new-task__area" id="new-task__area" class="new-task__area"></textarea>
-            <button class="add-btn" id="add-btn">Add</button>
+            <div class="add-task__wrapper">
+              <span class="warning" id="warning"></span>
+              <button class="add-btn" id="add-btn">Add</button>
+            </div>
           </div>
         </div>
         <ul class="task-list" id="task-list"></ul>

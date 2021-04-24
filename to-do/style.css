@@ -114,7 +114,7 @@ img {
   flex-direction: column;
 }
 
-.new-task span {
+.new-task__title {
   margin-bottom: 5px;
   color: #706e6b;
   font-size: 12px;
@@ -123,11 +123,31 @@ img {
 .new-task__area {
   height: 55px;
   margin-bottom: 11px;
+  padding: 5px;
   border: 1px solid #dddbda;
   border-radius: 4px;
 }
 
+.add-task__wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: stretch;
+}
+
+.warning {
+  display: none;
+  flex: 1 1 auto;
+  color: darkred;
+  font-size: 14px;
+  text-align: center;
+}
+
+.warning_show {
+  display: block;
+}
+
 .add-btn {
+  margin-bottom: 10px;
   padding: 5px;
   border: 0;
   background-color: #2f80ed;
@@ -138,6 +158,10 @@ img {
   font-weight: 500;
   letter-spacing: 10px;
   text-transform: uppercase;
+}
+
+button:active {
+  transform: translateY(1px);
 }
 
 .task-list {
@@ -163,27 +187,29 @@ img {
 .task__text-wrapper {
   display: flex;
   margin-bottom: 10px;
+  padding-right: 5px;
 }
 
 .task__text {
-  max-width: 97%;
+  max-width: 100%;
+  margin: 0;
   word-wrap: break-word;
 }
 
-.task.important .star {
-  flex: 0 0 auto;
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  background: url(./assets/image/star.svg);
-  vertical-align: bottom;
-}
-
 .task.important .task__text {
+  padding-left: 10px;
   font-weight: 700;
 }
 
-.task.done .task__text {
+.task.important .task__text::before {
+  content: '\2606';
+  position: absolute;
+  left: 10px;
+  font-size: 22px;
+}
+
+.task.done .task__text,
+.task.done .task__text::before {
   text-decoration: line-through;
 }
 
@@ -222,6 +248,10 @@ img {
 }
 
 @media screen and (min-width: 768px) {
+  .task-settings {
+    padding-top: 110px;
+  }
+
   .new-task__area {
     height: 100px;
   }
@@ -231,7 +261,7 @@ img {
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   :root {
     --wrapper-width: 765px;
     --cursor-img: url(./assets/image/cursor.svg), pointer;
@@ -289,8 +319,13 @@ img {
     height: 90px;
   }
 
+  .add-task__wrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
   .add-btn {
-    align-self: flex-end;
     padding: 10px 72px;
     font-size: 14px;
     letter-spacing: normal;
@@ -323,10 +358,6 @@ img {
     border: 1px solid rgba(47, 128, 237, 0.5);
     filter: drop-shadow(0 6px 20px rgba(47, 128, 237, 0.75));
     cursor: var(--cursor-img, url(./assets/image/cursor.svg), pointer);
-  }
-
-  .task:hover .task__text {
-    max-width: 66%;
   }
 
   .task:hover .task-btn__wrapper {

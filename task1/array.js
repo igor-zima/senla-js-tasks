@@ -1,4 +1,9 @@
 // Используя функцию, найти последний элемент массива, не изменяя его.
+/**
+ * @remark
+ * Если делается проверка на тип данных, то выбрасывается исключение TypeError.
+ * @see{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError/TypeError}
+ */
 function findLastElement(arr) {
   if (!(arr instanceof Array)) throw new TypeError('The argument must be an array');
 
@@ -10,6 +15,11 @@ function findLastElement(arr) {
 // console.log('%cНайти последний элемент массива:', 'color: red', findLastElement([1, 2, 3]));
 
 // Создать такую функцию, которая принимала бы массив [1,3,6], а возвращала новый массив с дублированными элементами [1,3,6,1,3,6].
+/**
+ * @remark
+ * Не нужно использовать спред [...arr] так как concat и так создаёт новый массив.
+ * @see{@link https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/concat}
+ */
 function duplicateArray(arr) {
   if (!(arr instanceof Array)) throw new TypeError('The argument must be an array');
 

@@ -1,0 +1,15 @@
+.logo {
+  flex: 0 0 auto;
+  width: 150px;
+  margin-bottom: 20px;
+
+  @media screen and (min-width: 1025px) {
+    width: 174px;
+    margin-right: 20px;
+    margin-bottom: 0;
+
+    & a {
+      cursor: var(--cursor-img, url(../assets/image/cursor.svg), pointer);
+    }
+  }
+}

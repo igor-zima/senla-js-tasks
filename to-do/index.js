@@ -1,7 +1,7 @@
 // import { ToDo } from './scripts/App/ToDo';
 import { registerHandler } from './scripts/registration/registration';
 
-import './style.css';
+import './styles/main.scss';
 
 // const taskList = document.getElementById('task-list');
 

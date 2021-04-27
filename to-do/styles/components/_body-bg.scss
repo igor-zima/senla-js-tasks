@@ -1,0 +1,12 @@
+.background {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  background: url('../assets/image/background.jpg') right bottom 10% / contain no-repeat;
+
+  @media screen and (min-width: 1025px) {
+    background-position: right 6px bottom 71px;
+    background-size: initial;
+  }
+}

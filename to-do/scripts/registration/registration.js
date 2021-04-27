@@ -11,8 +11,8 @@ export function registerHandler() {
 function registerUser() {
   const emailValue = document.getElementById('email').value;
   const passwordValue = document.getElementById('password').value;
-  const sign = document.querySelector('.sign.active');
-  const authMethod = sign.id === 'sign-up' ? 'signUp' : 'signInWithPassword';
+  const auth = document.querySelector('.auth.active');
+  const authMethod = auth.id === 'sign-up' ? 'signUp' : 'signInWithPassword';
 
   authUser(authMethod, emailValue, passwordValue).then((data) => {
     console.log(data);

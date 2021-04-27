@@ -1,0 +1,94 @@
+.btn {
+  padding: 5px;
+  border: 0;
+  background-color: var(--active-btn-color, #2f80ed);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14), 0 3px 4px rgba(0, 0, 0, 0.12),
+    0 1px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.register-btn {
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  margin-bottom: 10px;
+  letter-spacing: 10px;
+
+  @media screen and (min-width: 768px) {
+    padding: 8px;
+  }
+
+  @media screen and (min-width: 1025px) {
+    padding: 10px 72px;
+    font-size: 14px;
+    letter-spacing: normal;
+    cursor: var(--cursor-img, url(../assets/image/cursor.svg), pointer);
+  }
+}
+
+.task-btn__wrapper {
+  @include flex(row, normal, center);
+
+  @media screen and (min-width: 1025px) {
+    display: none;
+    float: right;
+  }
+}
+
+.mark-btn {
+  margin-right: 21px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 30px;
+  background-color: #bdbdbd;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 14%), 0 3px 4px rgb(0 0 0 / 12%), 0 1px 5px rgb(0 0 0 / 20%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+
+  &_important {
+    background-color: #27ae60;
+  }
+
+  @media screen and (min-width: 1025px) {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 16px;
+    cursor: var(--cursor-img, url(../assets/image/cursor.svg), pointer);
+  }
+}
+
+// .mark-btn_important {
+//   background-color: #27ae60;
+// }
+
+.delete-btn {
+  flex: 0 0 auto;
+  width: 35px;
+  height: 35px;
+  border: 0;
+  border-radius: 50%;
+  opacity: 0.5;
+  background: url(../assets/image/delete.svg) center / 21px no-repeat;
+  background-color: #c4c4c4;
+
+  @media screen and (min-width: 1025px) {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    background-size: 24px;
+    cursor: var(--cursor-img, url(../assets/image/cursor.svg), pointer);
+  }
+}

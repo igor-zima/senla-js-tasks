@@ -1,0 +1,26 @@
+// Abstracts
+@import 'abstracts/mixins';
+
+// Base
+@import 'base/base';
+
+// Layout
+@import 'layout/register-form';
+@import 'layout/header';
+@import 'layout/new-task';
+// @import 'layout/wrapper';
+// @import 'layout/header';
+// @import 'layout/content';
+
+// Components
+@import 'components/buttons';
+@import 'components/body-bg';
+@import 'components/logo';
+@import 'components/inputs';
+@import 'components/tabs';
+@import 'components/warning';
+@import 'components/task';
+// @import 'components/card';
+// @import 'components/main-page-card';
+// @import 'components/button';
+// @import 'components/stars';

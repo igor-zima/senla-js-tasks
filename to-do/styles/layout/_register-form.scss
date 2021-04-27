@@ -1,0 +1,42 @@
+.register {
+  @include flex(row, center, center);
+
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #e6e6e6;
+}
+
+.register__form {
+  @include flex(column, normal, center);
+
+  width: 500px;
+  min-height: 50%;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.input-wrapper {
+  margin-bottom: 20px;
+  border-bottom: 2px solid black;
+
+  & input {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: none;
+  }
+}
+
+.auth {
+  cursor: pointer;
+
+  &.active {
+    color: var(--active-btn-color);
+    text-decoration: underline;
+  }
+}

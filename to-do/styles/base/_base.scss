@@ -18,8 +18,14 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  background: url('../assets/image/background.jpg') right bottom 10% / contain no-repeat;
   font-family: var(--font-family, 'Roboto', sans-serif);
   font-size: var(--font-size, 14px);
+
+  @media screen and (min-width: 1025px) {
+    background-position: right 6px bottom 71px;
+    background-size: initial;
+  }
 }
 
 img {

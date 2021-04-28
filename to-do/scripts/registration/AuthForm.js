@@ -41,8 +41,8 @@ export class AuthForm {
           </label>
           <button type="button" class="btn register-btn" id="register-btn">Submit</button>
           <div class="auth-wrapper">
-            <span class="auth active" id="sign-up" tabindex="0">Sign Up</span>
-            <span class="auth" id="sign-in" tabindex="0">Sign In</span>
+            <span class="auth active" id="sign-in" tabindex="0">Sign In</span>
+            <span class="auth" id="sign-up" tabindex="0">Sign Up</span>
           </div>
         </form>
       </div>`;

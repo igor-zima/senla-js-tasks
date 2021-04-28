@@ -1,11 +1,7 @@
-// import { ToDo } from './scripts/App/ToDo';
-import { registerHandler } from './scripts/registration/registration';
-
+import { AuthForm } from './scripts/registration/AuthForm';
 import './styles/main.scss';
 
-// const taskList = document.getElementById('task-list');
+const app = document.getElementById('app');
 
-// const toDo = new ToDo(taskList);
-// toDo.init();
-
-registerHandler();
+const authForm = new AuthForm(app);
+authForm.init();

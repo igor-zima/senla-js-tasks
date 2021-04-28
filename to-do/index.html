@@ -13,72 +13,7 @@
     <title>To-Do</title>
   </head>
   <body>
-    <div class="register">
-      <form class="register__form" id="register-form" action="get" autocomplete="off">
-        <h3>Create an account</h3>
-        <label class="input-wrapper" for="email">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter your email"
-            autocomplete="off"
-          />
-        </label>
-        <label class="input-wrapper" for="password">
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password"
-            autocomplete="new-password"
-          />
-        </label>
-        <button type="button" class="btn register-btn" id="register-btn">Submit</button>
-        <div class="auth-wrapper">
-          <span class="auth active" id="sign-up" tabindex="0">Sign Up</span>
-          <span class="auth" id="sign-in" tabindex="0">Sign In</span>
-        </div>
-      </form>
-    </div>
-    <!-- <div class="background"></div>
-    <div class="wrapper">
-      <header class="header">
-        <div class="logo">
-          <a href="https://senlainc.com/" target="_blank">
-            <img src="./assets/image/logo.svg" alt="logo" />
-          </a>
-        </div>
-        <div class="search">
-          <input
-            class="search-input"
-            type="search"
-            name="search-input"
-            id="search-input"
-            placeholder="Search task for to do"
-            autocomplete="off"
-          />
-        </div>
-      </header>
-
-      <main>
-        <div class="task-settings">
-          <ul class="tabs" id="tabs">
-            <li><button class="tab active" data-tab="all">All</button></li>
-            <li><button class="tab" data-tab="active">Active</button></li>
-            <li><button class="tab" data-tab="done">Done</button></li>
-          </ul>
-          <div class="new-task">
-            <span class="new-task__title">New task</span>
-            <textarea name="new-task__area" id="new-task__area" class="new-task__area"></textarea>
-            <div class="add-task__wrapper">
-              <span class="warning" id="warning"></span>
-              <button class="btn add-btn" id="add-btn">Add</button>
-            </div>
-          </div>
-        </div>
-        <ul class="task-list" id="task-list"></ul>
-      </main>
-    </div> -->
+    <div class="background"></div>
+    <div class="wrapper" id="app"></div>
   </body>
 </html>

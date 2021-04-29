@@ -53,5 +53,7 @@
     "url": "https://github.com/igor-zima/senla-js-tasks/issues"
   },
   "homepage": "https://github.com/igor-zima/senla-js-tasks#readme",
-  "dependencies": {}
+  "dependencies": {
+    "firebase": "^8.4.2"
+  }
 }

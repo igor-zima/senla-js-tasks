@@ -1,6 +1,8 @@
 import { ToDo } from './ToDo';
+import Logo from '../../assets/image/logo.svg';
 
-export function renderToDoPage() {
+// eslint-disable-next-line import/prefer-default-export
+export function renderToDoPage(uid) {
   const header = createHeader();
   const main = createMain();
 
@@ -11,7 +13,7 @@ export function renderToDoPage() {
 
   const taskList = document.getElementById('task-list');
 
-  const toDo = new ToDo(taskList);
+  const toDo = new ToDo(taskList, uid);
   toDo.init();
 }
 
@@ -20,6 +22,7 @@ function createHeader() {
   <header class="header">
     <div class="logo">
       <a href="https://senlainc.com/" target="_blank">
+        <img src="${Logo}" alt="logo" />
       </a>
     </div>
     <div class="search">

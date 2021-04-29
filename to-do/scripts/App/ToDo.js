@@ -1,5 +1,13 @@
+import {
+  addTaskToDatabase,
+  deleteTaskFromDatabase,
+  updateTaskInDatabase,
+  getTaskListFromDatabase,
+} from '../firebase/database';
+
 export class ToDo {
-  constructor(list) {
+  constructor(list, uid) {
+    this.uid = uid;
     this.list = list;
     this.tasks = [];
     this.tabList = document.getElementById('tabs');
@@ -8,7 +16,7 @@ export class ToDo {
   }
 
   init() {
-    this.checkLocal();
+    this.getTaskList();
     document.getElementById('add-btn').addEventListener('click', this.addTaskHandler);
     document.getElementById('search-input').addEventListener('input', this.searchTaskHandler);
     this.tabList.addEventListener('click', this.filterTaskHandler);
@@ -16,28 +24,37 @@ export class ToDo {
     this.list.addEventListener('click', this.taskHandler);
   }
 
-  checkLocal() {
-    const localList = localStorage.getItem('taskList');
+  getTaskList() {
+    getTaskListFromDatabase(this.uid).then((snapshot) => {
+      const data = snapshot.val();
 
-    if (localList) {
-      this.tasks = JSON.parse(localList);
+      const databaseList = data && Object.keys(data).map((key) => data[key]);
+      const localList = localStorage.getItem('taskList');
+
+      if (data && databaseList.length) {
+        this.tasks = databaseList;
+      } else if (localList) {
+        this.tasks = JSON.parse(localList);
+      }
+
       this.renderList(this.tasks);
-    }
+    });
   }
 
   updateLocal(list) {
     localStorage.setItem('taskList', JSON.stringify(list));
   }
 
-  createTask(value) {
+  async createTask(value) {
     if (!value) return;
 
     const task = {
       value,
       important: false,
       done: false,
-      id: Date.now(),
     };
+
+    await addTaskToDatabase(this.uid, task);
 
     this.renderTask(task);
 
@@ -47,17 +64,19 @@ export class ToDo {
   }
 
   updateTask(id, option) {
-    const el = this.tasks.find((el) => el.id === +id);
+    const el = this.tasks.find((el) => el.id === id);
 
     el[option] = !el[option];
 
     this.updateLocal(this.tasks);
+
+    updateTaskInDatabase(this.uid, id, el);
   }
 
   deleteTask = (target) => {
     const { id } = target.closest('.task').dataset;
 
-    const index = this.tasks.findIndex((el) => el.id === +id);
+    const index = this.tasks.findIndex((el) => el.id === id);
 
     this.tasks.splice(index, 1);
 
@@ -68,6 +87,8 @@ export class ToDo {
     this.renderList(filterTask);
 
     this.updateLocal(this.tasks);
+
+    deleteTaskFromDatabase(this.uid, id);
   };
 
   filterTask(tab) {
@@ -155,6 +176,8 @@ export class ToDo {
   };
 
   taskHandler = ({ target }) => {
+    if (!target.closest('.task')) return;
+
     const { id } = target.closest('.task').dataset;
 
     if (

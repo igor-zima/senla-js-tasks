@@ -1,5 +1,6 @@
-import { authUser } from '../database/firebase';
-import { renderToDoPage } from '../App/app';
+import { authUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebase/auth';
+import { writeUserData } from '../firebase/database';
+import { renderToDoPage } from '../App/toDoPage';
 
 export class AuthForm {
   constructor(wrapper) {
@@ -64,13 +65,24 @@ export class AuthForm {
     const emailValue = document.getElementById('email').value;
     const passwordValue = document.getElementById('password').value;
     const auth = document.querySelector('.auth.active');
-    const authMethod = auth.id === 'sign-up' ? 'signUp' : 'signInWithPassword';
 
-    authUser(authMethod, emailValue, passwordValue).then((data) => {
-      console.log(data);
-      if (!data.error) {
-        renderToDoPage();
-      }
-    });
+    if (auth.id === 'sign-up') {
+      authUserWithEmailAndPassword(emailValue, passwordValue)
+        .then(({ uid }) => {
+          writeUserData(uid, emailValue);
+          renderToDoPage(uid);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      signInWithEmailAndPassword(emailValue, passwordValue)
+        .then((user) => {
+          renderToDoPage(user.uid);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 }

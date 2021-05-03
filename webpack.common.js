@@ -25,25 +25,10 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/env',
-                {
-                  targets: {
-                    ie: '11',
-                  },
-                  useBuiltIns: 'usage',
-                  corejs: '3.11.0',
-                },
-              ],
-            ],
-            plugins: ['@babel/plugin-proposal-class-properties'],
-          },
         },
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'assets/images/[name][ext][query]',

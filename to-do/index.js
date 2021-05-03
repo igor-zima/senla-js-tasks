@@ -1,8 +1,13 @@
-import { ToDo } from './script/ToDo';
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
+import { firebaseConfig } from './scripts/firebase/config';
+import { AuthForm } from './scripts/registration/AuthForm';
+import './styles/main.scss';
 
-import './style.css';
+firebase.initializeApp(firebaseConfig);
 
-const taskList = document.getElementById('task-list');
+const app = document.getElementById('app');
 
-const toDo = new ToDo(taskList);
-toDo.init();
+const authForm = new AuthForm(app);
+authForm.init();

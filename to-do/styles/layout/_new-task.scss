@@ -1,0 +1,30 @@
+.task-settings {
+  padding-top: 100px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 110px;
+  }
+
+  @media screen and (min-width: 1025px) {
+    padding-top: 95px;
+    padding-left: 44px;
+  }
+}
+
+.new-task {
+  @include flex(column);
+}
+
+.new-task__title {
+  margin-bottom: 5px;
+  color: #706e6b;
+  font-size: 12px;
+}
+
+.add-task__wrapper {
+  @include flex(column-reverse);
+
+  @media screen and (min-width: 1025px) {
+    @include flex(row, flex-end, center);
+  }
+}

@@ -1,0 +1,11 @@
+.warning {
+  display: none;
+  flex: 1 1 auto;
+  color: darkred;
+  font-size: 14px;
+  text-align: center;
+
+  &_show {
+    display: block;
+  }
+}

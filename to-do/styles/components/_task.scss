@@ -1,0 +1,84 @@
+.task-list {
+  padding-top: 10px;
+  padding-left: 0;
+  list-style: none;
+
+  @media screen and (min-width: 1025px) {
+    padding-top: 23px;
+    padding-left: 40px;
+  }
+}
+
+.task {
+  @include flex(column-reverse);
+
+  position: relative;
+  min-height: 85px;
+  margin-bottom: 13px;
+  padding: 15px 12px 15px 23px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  color: #53565a;
+  line-height: 19px;
+
+  &.important .task__text {
+    padding-left: 10px;
+    font-weight: 700;
+  }
+
+  &.important .task__text::before {
+    content: '\2606';
+    position: absolute;
+    left: 10px;
+    font-size: 22px;
+  }
+
+  &.done .task__text,
+  &.done .task__text::before {
+    text-decoration: line-through;
+  }
+
+  @media screen and (min-width: 1025px) {
+    display: block;
+    min-height: 109px;
+    margin-bottom: 17px;
+    padding: 15px 12px 15px 23px;
+
+    &.important .star {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    &.important .task__text {
+      font-weight: 700;
+    }
+
+    &:hover {
+      border: 1px solid rgba(47, 128, 237, 0.5);
+      filter: drop-shadow(0 6px 20px rgba(47, 128, 237, 0.75));
+      cursor: var(--cursor-img, url(../assets/image/cursor.svg), pointer);
+    }
+
+    &:hover .task-btn__wrapper {
+      display: flex;
+    }
+
+    &:focus-within .task-btn__wrapper {
+      display: flex;
+    }
+  }
+}
+
+.task__text-wrapper {
+  display: flex;
+  margin-bottom: 10px;
+  padding-right: 5px;
+}
+
+.task__text {
+  max-width: 100%;
+  margin: 0;
+  word-wrap: break-word;
+}

@@ -1,0 +1,14 @@
+.header {
+  @include flex(column, normal, center);
+
+  position: fixed;
+  z-index: 1;
+  top: 2%;
+  width: var(--wrapper-width, 92%);
+
+  @media screen and (min-width: 1025px) {
+    flex-direction: row;
+    width: 765px;
+    padding: 20px 0 0 23px;
+  }
+}

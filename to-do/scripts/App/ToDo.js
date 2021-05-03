@@ -1,42 +1,60 @@
-import 'core-js/stable';
+import {
+  addTaskToDatabase,
+  deleteTaskFromDatabase,
+  updateTaskInDatabase,
+  getTaskListFromDatabase,
+} from '../firebase/database';
 
 export class ToDo {
-  constructor(list) {
+  constructor(list, uid) {
+    this.uid = uid;
     this.list = list;
     this.tasks = [];
+    this.tabList = document.getElementById('tabs');
+    this.taskArea = document.getElementById('new-task__area');
+    this.warning = document.getElementById('warning');
   }
 
   init() {
-    this.checkLocal();
+    this.getTaskList();
     document.getElementById('add-btn').addEventListener('click', this.addTaskHandler);
     document.getElementById('search-input').addEventListener('input', this.searchTaskHandler);
-    document.getElementById('tabs').addEventListener('click', this.filterTaskHandler);
-    document.getElementById('new-task__area').addEventListener('keydown', this.addTaskHandler);
+    this.tabList.addEventListener('click', this.filterTaskHandler);
+    this.taskArea.addEventListener('keyup', this.addTaskHandler);
     this.list.addEventListener('click', this.taskHandler);
   }
 
-  checkLocal() {
-    const localList = localStorage.getItem('taskList');
+  getTaskList() {
+    getTaskListFromDatabase(this.uid).then((snapshot) => {
+      const data = snapshot.val();
 
-    if (localList) {
-      this.tasks = JSON.parse(localList);
+      const databaseList = data && Object.keys(data).map((key) => data[key]);
+      const localList = localStorage.getItem('taskList');
+
+      if (data && databaseList.length) {
+        this.tasks = databaseList;
+      } else if (localList) {
+        this.tasks = JSON.parse(localList);
+      }
+
       this.renderList(this.tasks);
-    }
+    });
   }
 
   updateLocal(list) {
     localStorage.setItem('taskList', JSON.stringify(list));
   }
 
-  createTask(value) {
+  async createTask(value) {
     if (!value) return;
 
     const task = {
       value,
       important: false,
       done: false,
-      id: Date.now(),
     };
+
+    await addTaskToDatabase(this.uid, task);
 
     this.renderTask(task);
 
@@ -46,17 +64,19 @@ export class ToDo {
   }
 
   updateTask(id, option) {
-    const el = this.tasks.find((el) => el.id === +id);
+    const el = this.tasks.find((element) => element.id === id);
 
     el[option] = !el[option];
 
     this.updateLocal(this.tasks);
+
+    updateTaskInDatabase(this.uid, id, el);
   }
 
-  deleteTask = (evt) => {
-    const { id } = evt.target.closest('.task').dataset;
+  deleteTask = (target) => {
+    const { id } = target.closest('.task').dataset;
 
-    const index = this.tasks.findIndex((el) => el.id === +id);
+    const index = this.tasks.findIndex((el) => el.id === id);
 
     this.tasks.splice(index, 1);
 
@@ -67,6 +87,8 @@ export class ToDo {
     this.renderList(filterTask);
 
     this.updateLocal(this.tasks);
+
+    deleteTaskFromDatabase(this.uid, id);
   };
 
   filterTask(tab) {
@@ -116,79 +138,75 @@ export class ToDo {
   }
 
   showWarning(text) {
-    const warning = document.getElementById('warning');
+    this.warning.textContent = text;
 
-    warning.textContent = text;
-
-    warning.classList.add('warning_show');
+    this.warning.classList.add('warning_show');
   }
 
   hideWarning() {
-    const warning = document.getElementById('warning');
-
-    warning.classList.remove('warning_show');
+    this.warning.classList.remove('warning_show');
   }
 
   addTaskHandler = (e) => {
-    const taskArea = document.getElementById('new-task__area');
-    let { value } = taskArea;
+    let value = this.taskArea.value.trim();
 
     if (!value) {
       this.showWarning('Please enter text!');
       return;
     }
 
+    this.hideWarning();
+
     if (e.type === 'click') {
       this.createTask(value);
-      taskArea.value = '';
-      this.hideWarning();
+      this.taskArea.value = '';
       return;
     }
 
     if (navigator.maxTouchPoints === 0) {
       if (e.ctrlKey && e.key === 'Enter') {
-        taskArea.value += '\n';
+        this.taskArea.value += '\n';
         value += '\n';
       } else if (e.key === 'Enter') {
         e.preventDefault();
         this.createTask(value);
-        taskArea.value = '';
-        this.hideWarning();
+        this.taskArea.value = '';
       }
     }
   };
 
-  taskHandler = (e) => {
-    const { id } = e.target.closest('.task').dataset;
+  taskHandler = ({ target }) => {
+    if (!target.closest('.task')) return;
+
+    const { id } = target.closest('.task').dataset;
 
     if (
-      e.target.closest('.task') &&
-      !e.target.classList.contains('mark-btn') &&
-      !e.target.classList.contains('delete-btn')
+      target.closest('.task') &&
+      !target.classList.contains('mark-btn') &&
+      !target.classList.contains('delete-btn')
     ) {
-      e.target.closest('.task').classList.toggle('done');
+      target.closest('.task').classList.toggle('done');
       this.updateTask(id, 'done');
     }
 
-    if (e.target.classList.contains('mark-btn')) {
-      e.target.classList.toggle('mark-btn_important');
-      e.target.closest('.task').classList.toggle('important');
+    if (target.classList.contains('mark-btn')) {
+      target.classList.toggle('mark-btn_important');
+      target.closest('.task').classList.toggle('important');
       this.updateTask(id, 'important');
     }
 
-    if (e.target.classList.contains('delete-btn')) {
-      this.deleteTask(e);
+    if (target.classList.contains('delete-btn')) {
+      this.deleteTask(target);
     }
   };
 
-  searchTaskHandler = (e) => {
-    const tabList = document.getElementById('tabs');
-    const tabs = tabList.querySelectorAll('.tab');
+  searchTaskHandler = ({ target }) => {
+    const tabs = this.tabList.querySelectorAll('.tab');
 
     tabs.forEach((el) => el.classList.remove('active'));
     tabs[0].classList.add('active');
 
-    const value = e.target.value.toLowerCase();
+    const value = target.value.toLowerCase();
 
     if (!value) this.renderList(this.tasks);
 
@@ -197,19 +215,19 @@ export class ToDo {
     this.renderList(currentTasks);
   };
 
-  filterTaskHandler = (e) => {
-    if (e.target.classList.contains('tab')) {
-      const tabData = e.target.dataset.tab;
-      const tabList = e.target.closest('.tabs');
+  filterTaskHandler = ({ target }) => {
+    if (!target.classList.contains('tab')) return;
 
-      const tabs = tabList.querySelectorAll('.tab');
+    const tabData = target.dataset.tab;
+    const tabList = target.closest('.tabs');
 
-      tabs.forEach((el) => el.classList.remove('active'));
-      e.target.classList.add('active');
+    const tabs = tabList.querySelectorAll('.tab');
 
-      const filterTask = this.filterTask(tabData);
+    tabs.forEach((el) => el.classList.remove('active'));
+    target.classList.add('active');
 
-      this.renderList(filterTask);
-    }
+    const filterTask = this.filterTask(tabData);
+
+    this.renderList(filterTask);
   };
 }

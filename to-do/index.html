@@ -9,47 +9,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="./assets/image/favicon.ico" type="image/x-icon" />
     <title>To-Do</title>
   </head>
   <body>
-    <div class="background"></div>
-    <div class="wrapper">
-      <header class="header">
-        <div class="logo">
-          <a href="https://senlainc.com/" target="_blank">
-            <img src="./assets/image/logo.svg" alt="logo" />
-          </a>
-        </div>
-        <div class="search">
-          <input
-            class="search-input"
-            type="search"
-            name="search-input"
-            id="search-input"
-            placeholder="Search task for to do"
-            autocomplete="off"
-          />
-        </div>
-      </header>
-
-      <main>
-        <div class="task-settings">
-          <ul class="tabs" id="tabs">
-            <li><button class="tab active" data-tab="all">All</button></li>
-            <li><button class="tab" data-tab="active">Active</button></li>
-            <li><button class="tab" data-tab="done">Done</button></li>
-          </ul>
-          <div class="new-task">
-            <span class="new-task__title">New task</span>
-            <textarea name="new-task__area" id="new-task__area" class="new-task__area"></textarea>
-            <div class="add-task__wrapper">
-              <span class="warning" id="warning"></span>
-              <button class="add-btn" id="add-btn">Add</button>
-            </div>
-          </div>
-        </div>
-        <ul class="task-list" id="task-list"></ul>
-      </main>
-    </div>
+    <div class="wrapper" id="app"></div>
   </body>
 </html>

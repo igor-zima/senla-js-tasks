@@ -1,0 +1,71 @@
+.register {
+  @include flex(row, center, center);
+
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #e6e6e6;
+}
+
+.register__form {
+  @include flex(column, space-evenly, center);
+
+  width: 500px;
+  min-height: 50%;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 2px 3px 15px rgb(0 0 0 / 50%);
+
+  & h3 {
+    margin-bottom: 0;
+    font-size: 24px;
+  }
+}
+
+.register__input-container {
+  max-width: 50%;
+}
+
+.input-wrapper {
+  border-bottom: 2px solid black;
+
+  & input {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: none;
+
+    &.wrong::placeholder {
+      color: red;
+    }
+  }
+
+  &:not(:last-child) input {
+    margin-bottom: 30px;
+  }
+}
+
+.auth-wrapper {
+  font-size: 16px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+  }
+}
+
+.auth {
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+
+  &.active {
+    border-bottom: 2px solid var(--active-btn-color);
+    color: var(--active-btn-color);
+  }
+}

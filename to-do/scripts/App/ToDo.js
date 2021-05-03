@@ -64,7 +64,7 @@ export class ToDo {
   }
 
   updateTask(id, option) {
-    const el = this.tasks.find((el) => el.id === id);
+    const el = this.tasks.find((element) => element.id === id);
 
     el[option] = !el[option];
 

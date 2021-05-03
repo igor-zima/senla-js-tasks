@@ -1,7 +1,6 @@
 import { ToDo } from './ToDo';
 import Logo from '../../assets/image/logo.svg';
 
-// eslint-disable-next-line import/prefer-default-export
 export function renderToDoPage(uid) {
   const header = createHeader();
   const main = createMain();

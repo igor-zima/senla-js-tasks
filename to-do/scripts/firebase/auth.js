@@ -5,7 +5,7 @@ export function authUserWithEmailAndPassword(email, password) {
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      const { user } = userCredential;
       return user;
     });
 }
@@ -15,7 +15,7 @@ export function signInWithEmailAndPassword(email, password) {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      const { user } = userCredential;
       return user;
     });
 }
